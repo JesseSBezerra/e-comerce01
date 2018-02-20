@@ -36,6 +36,9 @@ public class Produto implements Serializable {
 	@Column(name="TP_PRODUTO")
 	private String tpProduto;
 	
+	@Column(name="VL_CUSTO_COMPRA")
+	private Double vlCustoCompra;
+	
 	public Produto(Long cdProduto, String dsProduto, String snControlaLote,
 			String snControlaValidade, String tpProduto) {
 		super();
@@ -89,6 +92,14 @@ public class Produto implements Serializable {
 
 	public void setTpProduto(String tpProduto) {
 		this.tpProduto = tpProduto;
+	}
+
+	public Double getVlCustoCompra() {
+		return vlCustoCompra;
+	}
+
+	public void setVlCustoCompra(Double vlCustoCompra) {
+		this.vlCustoCompra = vlCustoCompra;
 	}
 	
 	

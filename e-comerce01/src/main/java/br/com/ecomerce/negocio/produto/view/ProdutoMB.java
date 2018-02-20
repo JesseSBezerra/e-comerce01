@@ -3,6 +3,7 @@ package br.com.ecomerce.negocio.produto.view;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -26,13 +27,24 @@ public class ProdutoMB implements Serializable {
 	@SuppressWarnings("unused")
 	private List<Produto> listaProdutos;
 	private List<Produto> listaFiltro;
+	private boolean isChargeDisabled;
 	
-	public ProdutoMB() {
-		// TODO Auto-generated constructor stub
-		produto = new Produto();
-		produtoSelecionado = new Produto();
-		produtoControler = new ProdutoControler();
-	}
+	@PostConstruct
+	public void init() {
+		 produto = new Produto();
+		 produtoSelecionado = new Produto();
+		 produtoControler = new ProdutoControler();
+		 getChargeEnabled();
+	 }
+	 
+	 private void getChargeEnabled(){
+		 if(this.produtoControler.listarProdutos()!=null && this.produtoControler.listarProdutos().size() > 10 ){
+			 this.isChargeDisabled = true; 
+		 }else{
+			 this.isChargeDisabled = false;
+		 }
+	 }
+	
 
 	public Produto getProduto() {
 		return produto;
@@ -65,6 +77,12 @@ public class ProdutoMB implements Serializable {
 		this.produtoSelecionado = new Produto();
 		this.produto = new Produto();
 	}
+	
+	public void gerarCarga(){
+		this.produtoControler.gerarCargaInicial();
+		this.produtoSelecionado = new Produto();
+		this.produto = new Produto();
+	}
 
 	public List<Produto> getListaFiltro() {
 		return listaFiltro;
@@ -89,6 +107,16 @@ public class ProdutoMB implements Serializable {
 	public void setProdutoVisao(Produto produto) {
 		this.produto = produto;
 	}
+
+	public boolean isChargeDisabled() {
+		return isChargeDisabled;
+	}
+
+	public void setChargeDisabled(boolean isChargeDisabled) {
+		this.isChargeDisabled = isChargeDisabled;
+	}
+	
+	
 	
 
 }
