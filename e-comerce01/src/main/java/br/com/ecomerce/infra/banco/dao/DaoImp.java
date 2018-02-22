@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 
 import br.com.ecomerce.infra.banco.hibernate.HibernateUtil;
 
@@ -92,12 +93,11 @@ public class DaoImp<T extends Serializable> implements Dao<T> {
 		List<T> lista = null;
 		Transaction transaction = null;
 		Session session = getSession();
-		Query consulta = null;
 		
 		try{
 			transaction = session.beginTransaction();
-			 consulta = session.createQuery("from "+ classe.getName());
-			lista = consulta.list();
+			Criteria criteria = session.createCriteria(classe);
+			lista = criteria.addOrder(Order.asc("id")).list();
 			transaction.commit();
 		}catch(Exception e){
 			throw new Exception("Erro no metodo:Listar", e);
