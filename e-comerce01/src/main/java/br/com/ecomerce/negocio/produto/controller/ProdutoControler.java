@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.ecomerce.infra.banco.dao.Dao;
 import br.com.ecomerce.infra.banco.dao.DaoImp;
+import br.com.ecomerce.integracao.wallmart.WallmartIntegra;
 import br.com.ecomerce.negocio.produto.model.Produto;
 
 public class ProdutoControler implements Serializable{
@@ -15,10 +16,12 @@ public class ProdutoControler implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Dao<Produto> dao;
+	private WallmartIntegra integra;
 	
 	public ProdutoControler() {
 		// TODO Auto-generated constructor stub
 		dao = new DaoImp<Produto>(Produto.class);
+		integra = new WallmartIntegra();
 	}
 	
 	public void salvarProduto(Produto produto){
@@ -33,7 +36,7 @@ public class ProdutoControler implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+		
 	public void remover(Produto produto){
 		try {
 			dao.excluir(produto);
@@ -53,6 +56,10 @@ public class ProdutoControler implements Serializable{
 		}
 		
 		return lista;
+	}
+	
+	public void gerarCargaInicial(){
+		this.integra.chargeWallMart();
 	}
 	
 

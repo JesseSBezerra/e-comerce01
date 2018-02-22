@@ -3,35 +3,48 @@ package br.com.ecomerce.negocio.produto.view;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.ecomerce.infra.report.bean.AbstractReportBean;
 import br.com.ecomerce.negocio.produto.controller.ProdutoControler;
 import br.com.ecomerce.negocio.produto.model.Produto;
 
 @ManagedBean
 @ViewScoped
-public class ProdutoMB implements Serializable {
+public class ProdutoMB extends AbstractReportBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Produto produto;
 	private Produto produtoSelecionado;
-	
+
 	private ProdutoControler produtoControler;
-	
+	private final String COMPILE_FILE_NAME = "produtos";
+
 	@SuppressWarnings("unused")
 	private List<Produto> listaProdutos;
 	private List<Produto> listaFiltro;
-	
-	public ProdutoMB() {
-		// TODO Auto-generated constructor stub
+	private boolean isChargeDisabled;
+
+	@PostConstruct
+	public void init() {
 		produto = new Produto();
 		produtoSelecionado = new Produto();
 		produtoControler = new ProdutoControler();
+		getChargeEnabled();
+	}
+
+	private void getChargeEnabled() {
+		if (this.produtoControler.listarProdutos() != null && this.produtoControler.listarProdutos().size() > 10) {
+			this.isChargeDisabled = true;
+		} else {
+			this.isChargeDisabled = false;
+		}
 	}
 
 	public Produto getProduto() {
@@ -41,8 +54,7 @@ public class ProdutoMB implements Serializable {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
-	
+
 	public List<Produto> getListaProdutos() {
 		return this.produtoControler.listarProdutos();
 	}
@@ -51,17 +63,23 @@ public class ProdutoMB implements Serializable {
 		this.listaProdutos = listaProdutos;
 	}
 
-	public void salvar(){
+	public void salvar() {
 		this.produtoControler.salvarProduto(produto);
 		this.limpar();
 	}
-	
-	public void remover(){
+
+	public void remover() {
 		this.produtoControler.remover(produto);
 		this.limpar();
 	}
-	
-	public void limpar(){
+
+	public void limpar() {
+		this.produtoSelecionado = new Produto();
+		this.produto = new Produto();
+	}
+
+	public void gerarCarga() {
+		this.produtoControler.gerarCargaInicial();
 		this.produtoSelecionado = new Produto();
 		this.produto = new Produto();
 	}
@@ -81,14 +99,37 @@ public class ProdutoMB implements Serializable {
 	public void setProdutoSelecionado(Produto produtoSelecionado) {
 		this.produtoSelecionado = produtoSelecionado;
 	}
-	
-	public void onRowSelect() {  
-        setProduto(produtoSelecionado);
-    }
-	
+
+	public void onRowSelect() {
+		setProduto(produtoSelecionado);
+	}
+
 	public void setProdutoVisao(Produto produto) {
 		this.produto = produto;
 	}
-	
+
+	public boolean isChargeDisabled() {
+		return isChargeDisabled;
+	}
+
+	public void setChargeDisabled(boolean isChargeDisabled) {
+		this.isChargeDisabled = isChargeDisabled;
+	}
+
+	@Override
+	protected String getCompileFileName() {
+		return COMPILE_FILE_NAME;
+	}
+
+	  public String execute() {
+		try {
+			super.prepareReport();
+		} catch (Exception e) {
+			// make your own exception handling
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 
 }

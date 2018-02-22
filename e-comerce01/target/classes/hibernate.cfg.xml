@@ -4,16 +4,27 @@
 
 <hibernate-configuration>
 	<session-factory>
-	    <property name="hibernate.connection.username">system</property>
-		<property name="hibernate.connection.password">N@ruto2012</property>
-		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
+	    <property name="hibernate.connection.username">dbamv</property>
+		<property name="hibernate.connection.password">dbamv</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@phoenix:1521:v60d</property>
 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>      
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>   
+<!-- 	    <property name="hibernate.connection.username">system</property> -->
+<!-- 		<property name="hibernate.connection.password">N@ruto2012</property> -->
+<!-- 		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property> -->
+<!-- 		<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+<!-- 		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>       -->
+<!--         <property name="hibernate.connection.username">jesse9001</property> -->
+<!-- 		<property name="hibernate.connection.password">@jesse#fuctura</property> -->
+<!-- 		<property name="hibernate.connection.url">jdbc:mysql://db4free.net:3306/fuctura9001</property> -->
+<!-- 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property> -->
+<!-- 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>    -->
 		<property name="log.hibernate">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
 		<property name="hibernate.current_session_context_class">thread</property>
 		<mapping class="br.com.ecomerce.negocio.produto.model.Produto"/>
+		<mapping class="br.com.ecomerce.negocio.servico.model.Servico"/>
 	</session-factory>
 </hibernate-configuration>
