@@ -27,6 +27,9 @@ public class Fornecedor implements Serializable {
 	@Column(name="NM_FORNECEDOR")
 	private String nmFornecedor;
 	
+	@Column(name="DS_CNPJ",unique=true)
+	private String dsCNPJ;
+	
 	@Column(name="DS_EMAIL_FORNECEDOR")
 	private String dsEmailFornecedor;
 	
@@ -56,6 +59,14 @@ public class Fornecedor implements Serializable {
 
 	public void setDsEmailFornecedor(String dsEmailFornecedor) {
 		this.dsEmailFornecedor = dsEmailFornecedor;
+	}
+
+	public String getDsCNPJ() {
+		return dsCNPJ;
+	}
+
+	public void setDsCNPJ(String dsCNPJ) {
+		this.dsCNPJ = dsCNPJ;
 	}
 	
 	

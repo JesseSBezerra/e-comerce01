@@ -46,7 +46,7 @@ public class DaoImp<T extends Serializable> implements Dao<T> {
         } catch (Exception e) {
             HibernateUtil.rollbackTransaction(transaction);
             HibernateUtil.closeSession(session);
-            e.printStackTrace();
+            throw new Exception(e.getMessage());
         } finally {
             HibernateUtil.closeSession(session);
         }

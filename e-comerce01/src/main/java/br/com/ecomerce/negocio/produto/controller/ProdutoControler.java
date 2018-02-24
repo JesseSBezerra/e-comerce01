@@ -3,6 +3,9 @@ package br.com.ecomerce.negocio.produto.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import br.com.ecomerce.infra.banco.dao.Dao;
 import br.com.ecomerce.infra.banco.dao.DaoImp;
 import br.com.ecomerce.integracao.wallmart.WallmartIntegra;
@@ -35,6 +38,8 @@ public class ProdutoControler implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Atenção", "Registro salvo com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, fm);
 	}
 		
 	public void remover(Produto produto){

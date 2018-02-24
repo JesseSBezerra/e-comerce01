@@ -3,6 +3,9 @@ package br.com.ecomerce.infra.banco.dao.crud;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import br.com.ecomerce.infra.banco.dao.Dao;
 import br.com.ecomerce.infra.banco.dao.DaoImp;
 
@@ -24,10 +27,15 @@ public abstract class BaseCrud<T extends Serializable> implements Serializable {
 	public void salvar(T t){
 		 try {
 			dao.salvar(t);
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Atenção", "Registro salvo com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, fm);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção", e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null, fm);
 		}
+		
 	}
 	
 	public void atualizar(T t){

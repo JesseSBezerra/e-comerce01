@@ -21,5 +21,6 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		<mapping class="br.com.ecomerce.negocio.produto.model.Produto"/>
 		<mapping class="br.com.ecomerce.negocio.servico.model.Servico"/>
+		<mapping class="br.com.ecomerce.negocio.fornecedor.model.Fornecedor"/>
 	</session-factory>
 </hibernate-configuration>
