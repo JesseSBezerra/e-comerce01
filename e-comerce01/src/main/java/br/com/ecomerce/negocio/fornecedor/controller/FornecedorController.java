@@ -2,10 +2,10 @@ package br.com.ecomerce.negocio.fornecedor.controller;
 
 import java.io.Serializable;
 
-import br.com.ecomerce.infra.banco.dao.crud.BaseCrud;
+import br.com.ecomerce.infra.crud.AbstractCrud;
 import br.com.ecomerce.negocio.fornecedor.model.Fornecedor;
 
-public class FornecedorController extends BaseCrud<Fornecedor> implements
+public class FornecedorController extends AbstractCrud<Fornecedor> implements
 		Serializable {
 
 	public FornecedorController() {

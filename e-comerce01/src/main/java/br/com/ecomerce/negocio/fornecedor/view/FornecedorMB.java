@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.ecomerce.infra.banco.dao.crud.BaseCrud;
 import br.com.ecomerce.negocio.fornecedor.controller.FornecedorController;
 import br.com.ecomerce.negocio.fornecedor.model.Fornecedor;
 

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="produto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96c905df-d57d-40df-a78e-378fb02c774e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select (select max(rownum) from tbl_produto) as MAIOR_REGISTRO,p.* from tbl_produto p]]>
+	</queryString>
+	<field name="MAIOR_REGISTRO" class="java.lang.Integer"/>
+	<field name="CD_PRODUTO" class="java.math.BigDecimal"/>
+	<field name="DS_PRODUTO" class="java.lang.String"/>
+	<field name="SN_CONTROLA_LOTE" class="java.lang.String"/>
+	<field name="SN_CONTROLA_VALIDADE" class="java.lang.String"/>
+	<field name="TP_PRODUTO" class="java.lang.String"/>
+	<field name="VL_CUSTO_COMPRA" class="java.lang.Double"/>
+	<variable name="VL_CUSTO_COMPRA_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{VL_CUSTO_COMPRA}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ccd788ce-269f-4790-a840-6bb9df9eb7e9" x="155" y="0" width="261" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[Relatório de Produtos Cadastrados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3118233a-c94e-41c2-bc4e-b6650f20393f" x="107" y="2" width="200" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="31d91e3a-5910-4a93-bd2a-a6f9b8d70937" x="0" y="2" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2e577862-02d3-44be-b43b-3bae7ee76df2" x="313" y="2" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8bf04817-b4d5-4dd0-abc0-f8b64cc7f590" x="421" y="2" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Valor de Compra]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a7254bd0-6c4c-4832-8ff6-245a75782524" x="107" y="0" width="200" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DS_PRODUTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="11852531-bc9b-4ef9-be22-857a27f1d89c" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{CD_PRODUTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="72f12647-0b79-4a5c-9390-c884beca109e" x="311" y="0" width="102" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TP_PRODUTO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="de9eb476-5658-43bc-bcfa-4b1d498053d8" x="421" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{VL_CUSTO_COMPRA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="22">
+			<printWhenExpression><![CDATA[$F{MAIOR_REGISTRO}.equals( $V{REPORT_COUNT}.intValue() )]]></printWhenExpression>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="807d5939-6568-4710-964c-a27d669fbffe" x="421" y="0" width="100" height="20">
+					<printWhenExpression><![CDATA[$F{MAIOR_REGISTRO}.equals( $V{REPORT_COUNT}.intValue() )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{VL_CUSTO_COMPRA_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2e577862-02d3-44be-b43b-3bae7ee76df2" x="321" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

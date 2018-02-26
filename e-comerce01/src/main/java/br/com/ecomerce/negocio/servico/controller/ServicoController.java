@@ -1,14 +1,11 @@
 package br.com.ecomerce.negocio.servico.controller;
 
 import java.io.Serializable;
-import java.util.List;
 
-import br.com.ecomerce.infra.banco.dao.Dao;
-import br.com.ecomerce.infra.banco.dao.DaoImp;
-import br.com.ecomerce.infra.banco.dao.crud.BaseCrud;
+import br.com.ecomerce.infra.crud.AbstractCrud;
 import br.com.ecomerce.negocio.servico.model.Servico;
 
-public class ServicoController extends BaseCrud<Servico> implements Serializable {
+public class ServicoController extends AbstractCrud<Servico> implements Serializable {
 
 	/**
 	 * 
@@ -17,6 +14,12 @@ public class ServicoController extends BaseCrud<Servico> implements Serializable
 	
 	public ServicoController() {
 		super(Servico.class);
+	}
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		
 	}
     
    
