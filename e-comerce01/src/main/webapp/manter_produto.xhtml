@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<h:body>
+	<h:form id="formulario" target="_blank">
+		<h:panelGrid columns="2">
+		
+		<h:panelGrid columns="1">
+			<p:outputLabel value="Código" />
+			<p:inputText value="#{produtoMB.produto.cdProduto}" disabled="true" />
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1">	
+			<p:outputLabel value="Descrição" />
+			<p:inputText value="#{produtoMB.produto.dsProduto}" style="width:300%"/>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1">
+			    <p:outputLabel value="Tipo" />
+				<p:selectOneMenu id="especie" value="#{produtoMB.produto.tpProduto}" style="width:125px">
+		            <f:selectItem itemLabel="Medicamentos" itemValue="MEDICAMENTOS" />
+		            <f:selectItem itemLabel="Nutrição" itemValue="NUTRIÇÃO" />
+		            <f:selectItem itemLabel="Ferramentas" itemValue="FERRAMENTAS" />
+		            <f:selectItem itemLabel="Utilitarios" itemValue="UTILITARIOS" />
+		            <f:selectItem itemLabel="Patrimonio" itemValue="PATRIMONIO" />
+		        </p:selectOneMenu>
+		 </h:panelGrid>
+		
+		<h:panelGrid columns="3">
+		<h:panelGrid columns="1">
+			    <p:outputLabel value="Lote" />
+				<p:selectOneMenu id="lote" value="#{produtoMB.produto.snControlaLote}" style="width:125px">
+		            <f:selectItem itemLabel="Sim" itemValue="S" />
+		            <f:selectItem itemLabel="Não" itemValue="N" />
+		        </p:selectOneMenu>
+		 </h:panelGrid>
+		 
+		 <h:panelGrid columns="1">
+			    <p:outputLabel value="Validade" />
+				<p:selectOneMenu id="validade" value="#{produtoMB.produto.snControlaValidade}" style="width:125px">
+		            <f:selectItem itemLabel="Sim" itemValue="S" />
+		            <f:selectItem itemLabel="Não" itemValue="N" />
+		        </p:selectOneMenu>
+		 </h:panelGrid>
+		 
+		  <h:panelGrid columns="1">
+			    <p:outputLabel value="Valor" />
+				<p:inputText value="#{produtoMB.produto.vlCustoCompra}" >
+				   <f:convertNumber pattern="#0.00"/>
+				</p:inputText>
+		 </h:panelGrid>
+		        
+		 </h:panelGrid>
+			
+		</h:panelGrid>
+		<br/>
+		<p:fieldset legend="Produtos Cadastrados" style="width:1200px;" >
+					<p:growl id="messages" showDetail="true" />
+					<p:dataTable var="produtoDataTable" value="#{produtoMB.lista}"   id="listaProdutos"
+								paginator="true" rows="6"
+								filteredValue="#{produtoMB.listaFiltro}" 
+								emptyMessage="Nenhum Registro"
+								widgetVar="produtoTable"
+		                 		rowKey="#{produtoDataTable.cdProduto}"
+		                 		selection="#{produtoMB.objetoSelecionado}"
+		                 		selectionMode="single">
+					  
+					  <p:ajax event="rowSelect" update=":formulario"  listener="#{produtoMB.onRowSelect}"/> 
+						
+						<p:column style="width:30%"
+								filterBy="#{produtoDataTable.cdProduto}"
+                				headerText="Código" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{produtoDataTable.cdProduto}"/>  
+				        </p:column>
+						
+						<p:column style="width:60%"
+								filterBy="#{produtoDataTable.dsProduto}"
+                				headerText="Descrição" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{produtoDataTable.dsProduto}"/>  
+				        </p:column>  
+				        
+				        <p:column style="width:40%"
+								filterBy="#{produtoDataTable.tpProduto}"
+                				headerText="Tipo" 
+                				filterMatchMode="contains">    
+				           <h:outputText value="#{produtoDataTable.tpProduto}" />  
+				        </p:column> 
+				        
+				        <p:column style="width:30%"
+								filterBy="#{produtoDataTable.snControlaLote}"
+                				headerText="Lote" 
+                				filterMatchMode="contains">    
+				           <h:outputText value="#{produtoDataTable.snControlaLote}" />  
+				        </p:column>
+				        
+				        <p:column style="width:30%"
+								filterBy="#{produtoDataTable.snControlaValidade}"
+                				headerText="Validade" 
+                				filterMatchMode="contains">    
+				           <h:outputText value="#{produtoDataTable.snControlaValidade}" />  
+				         </p:column>
+				         
+				        <p:column style="width:20%"
+                				headerText="Vl." >
+				           <h:outputText value="#{produtoDataTable.vlCustoCompra}" /> 
+				            
+				        </p:column>  
+				        
+					</p:dataTable>
+		</p:fieldset>
+		
+		
+		<br/>
+		 
+		 <h:selectOneRadio value="#{produtoMB.exportOption}">
+                    <f:selectItem itemValue="PDF" itemLabel="PDF"/>
+                    <f:selectItem itemValue="HTML" itemLabel="HTML"/>
+                    <f:selectItem itemValue="EXCEL" itemLabel="EXCEL"/>
+                    <f:selectItem itemValue="RTF" itemLabel="RTF"/>
+         </h:selectOneRadio>
+		 
+		<h:panelGroup columns="3">
+		   <p:commandButton value="Salvar" action="#{produtoMB.salvar}" update="formulario" />
+		   <p:commandButton value="Remover" action="#{produtoMB.remover}" update="formulario" />
+		   <p:commandButton value="Limpar" action="#{produtoMB.clear}" update="formulario" />	
+		   <p:commandButton  actionListener="#{produtoMB.executeReport}" value="Imprimir" ajax="false" />
+	       <p:commandButton value="Carga Inicial" action="#{produtoMB.execute}" update="formulario" />
+	      	
+	    </h:panelGroup>
+	
+	</h:form>
+	
+</h:body>
+
+</html>

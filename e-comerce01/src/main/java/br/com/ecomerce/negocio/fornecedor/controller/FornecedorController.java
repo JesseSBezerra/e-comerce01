@@ -1,15 +1,11 @@
 package br.com.ecomerce.negocio.fornecedor.controller;
 
-import java.io.Serializable;
+import br.com.ecomerce.infra.crud.AbstractController;
 
-import br.com.ecomerce.infra.crud.AbstractCrud;
-import br.com.ecomerce.negocio.fornecedor.model.Fornecedor;
-
-public class FornecedorController extends AbstractCrud<Fornecedor> implements
-		Serializable {
+public class FornecedorController implements AbstractController {
 
 	public FornecedorController() {
-		super(Fornecedor.class);
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -17,5 +13,11 @@ public class FornecedorController extends AbstractCrud<Fornecedor> implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void executeControler() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -161,4 +161,21 @@ public class DaoImp<T extends Serializable> implements Dao<T> {
 		x[0] = "A";
 		salvar("A","B","C","D");
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> getListByObject(Class<?> classe) throws Exception {
+		List<T> lista = null;
+		Session session = getSession();
+		
+		try{
+			Criteria criteria = session.createCriteria(classe);
+			lista = criteria.addOrder(Order.asc("id")).list();
+		}catch(Exception e){
+			throw new Exception("Erro no metodo:Listar", e);
+        } finally {
+            HibernateUtil.closeSession(session);
+        }
+		return lista;
+	}
 }

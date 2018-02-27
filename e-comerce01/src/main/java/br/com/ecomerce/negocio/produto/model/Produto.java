@@ -102,7 +102,10 @@ public class Produto implements Serializable {
 		this.vlCustoCompra = vlCustoCompra;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.dsProduto;
+	}
 	
 	
 	

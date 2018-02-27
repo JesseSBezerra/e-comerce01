@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<h:body>
+	<h:form id="formulario" target="_blank">
+		<h:panelGrid columns="2">
+		
+		<h:panelGrid columns="1">
+			<p:outputLabel value="Código" />
+			<p:inputText value="#{servicoMB.servico.cdServico}" disabled="true" />
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1">	
+			<p:outputLabel value="Nome" />
+			<p:inputText value="#{fornecedorMB.fornecedor.nmFornecedor}" style="width:300%"/>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1">
+			<p:outputLabel value="CNPJ" />
+			<p:inputText value="#{fornecedorMB.fornecedor.dsCNPJ}" />
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1">	
+			<p:outputLabel value="Email" />
+			<p:inputText value="#{fornecedorMB.fornecedor.dsEmailFornecedor}" style="width:300%"/>
+		</h:panelGrid>
+		
+			
+		</h:panelGrid>
+		<br/>
+		<p:fieldset legend="Fornecedores Cadastrados" style="width:1200px;" >
+					<p:growl id="messages" showDetail="true" />
+					<p:dataTable var="fornecedorDataTable" value="#{fornecedorMB.lista}"   id="listaProdutos"
+								paginator="true" rows="6"
+								filteredValue="#{fornecedorMB.listaFiltro}" 
+								emptyMessage="Nenhum Registro"
+								widgetVar="produtoTable"
+		                 		rowKey="#{fornecedorDataTable.cdFornecedor}"
+		                 		selection="#{fornecedorMB.objetoSelecionado}"
+		                 		selectionMode="single">
+					  
+					  <p:ajax event="rowSelect" update=":formulario"  listener="#{fornecedorMB.onRowSelect}"/> 
+						
+						<p:column style="width:30%"
+								filterBy="#{fornecedorDataTable.cdFornecedor}"
+                				headerText="Código" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{fornecedorDataTable.cdFornecedor}"/>  
+				        </p:column>
+						
+						<p:column style="width:60%"
+								filterBy="#{fornecedorDataTable.nmFornecedor}"
+                				headerText="Descrição" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{fornecedorDataTable.nmFornecedor}"/>  
+				        </p:column>  
+				        
+				        <p:column style="width:30%"
+								filterBy="#{fornecedorDataTable.dsCNPJ}"
+                				headerText="CNPJ" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{fornecedorDataTable.dsCNPJ}"/>  
+				        </p:column>
+				       
+				       <p:column style="width:60%"
+								filterBy="#{fornecedorDataTable.dsEmailFornecedor}"
+                				headerText="Email" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{fornecedorDataTable.dsEmailFornecedor}"/>  
+				        </p:column>  
+				            
+				
+				        
+					</p:dataTable>
+		</p:fieldset>
+		
+		
+		<br/>
+		 
+		 <h:selectOneRadio value="#{fornecedorMB.exportOption}">
+                    <f:selectItem itemValue="PDF" itemLabel="PDF"/>
+                    <f:selectItem itemValue="HTML" itemLabel="HTML"/>
+                    <f:selectItem itemValue="EXCEL" itemLabel="EXCEL"/>
+                    <f:selectItem itemValue="RTF" itemLabel="RTF"/>
+         </h:selectOneRadio>
+		 
+		<h:panelGroup columns="3">
+		   <p:commandButton value="Salvar" action="#{fornecedorMB.salvar}" update="formulario" />
+		   <p:commandButton value="Remover" action="#{fornecedorMB.remover}" update="formulario" />
+		   <p:commandButton value="Limpar" action="#{fornecedorMB.clear}" update="formulario" />	
+		   <p:commandButton  actionListener="#{fornecedorMB.executeReport}" value="Imprimir" ajax="false" />
+	      	
+	    </h:panelGroup>
+	
+	</h:form>
+	
+</h:body>
+
+</html>

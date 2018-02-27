@@ -68,6 +68,11 @@ public class Fornecedor implements Serializable {
 	public void setDsCNPJ(String dsCNPJ) {
 		this.dsCNPJ = dsCNPJ;
 	}
+
+	@Override
+	public String toString() {
+		return this.nmFornecedor;
+	}
 	
 	
 

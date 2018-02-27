@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+<h:body>
+	<h:form id="formulario" target="_blank">
+	<h:panelGrid columns="2">
+      <h:panelGrid columns="1">
+	   <p:outputLabel value="Produto" for="produto" />
+        <p:autoComplete id="produto" minQueryLength="3" value="#{prodForMB.produto}" converter="produtoConverter" completeMethod="#{prodForMB.complete}" effect="fade" style="width:100%" />
+      </h:panelGrid>
+      <h:panelGrid columns="1">
+	   <p:outputLabel value="Fornecedor" for="fornecedor" />
+        <p:autoComplete id="fornecedor" minQueryLength="3" value="#{prodForMB.fornecedor}" completeMethod="#{prodForMB.completeFor}" converter="fornecedorConverter" effect="fade" style="width:100%" />
+      </h:panelGrid>
+     </h:panelGrid>
+     
+     <p:fieldset legend="Itens vinculados" style="width:1200px;" >
+					<p:growl id="messages" showDetail="true" />
+					<p:dataTable var="fornecedorDataTable" value="#{prodForMB.lista}"   id="listaProdutos"
+								paginator="true" rows="6"
+								filteredValue="#{prodForMB.listaFiltro}" 
+								emptyMessage="Nenhum Registro"
+								widgetVar="produtoTable"
+		                 		rowKey="#{fornecedorDataTable.prodForId}"
+		                 		selection="#{prodForMB.objetoSelecionado}"
+		                 		selectionMode="single">
+					  
+					  <p:ajax event="rowSelect" update=":formulario"  listener="#{prodForMB.onRowSelect}"/> 
+						
+						<p:column style="width:10%"
+								filterBy="#{fornecedorDataTable.fornecedor.cdFornecedor}"
+                				headerText="Código" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{fornecedorDataTable.fornecedor.cdFornecedor}"/>  
+				        </p:column>
+				        
+				        <p:column style="width:30%"
+								filterBy="#{fornecedorDataTable.fornecedor.nmFornecedor}"
+                				headerText="Nome" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{fornecedorDataTable.fornecedor.nmFornecedor}"/>  
+				        </p:column>    
+				        
+				        <p:column style="width:10%"
+								filterBy="#{fornecedorDataTable.produto.cdProduto}"
+                				headerText="Código" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{fornecedorDataTable.produto.cdProduto}"/>  
+				        </p:column>
+				        
+				        <p:column style="width:30%"
+								filterBy="#{fornecedorDataTable.produto.dsProduto}"
+                				headerText="Nome" 
+                				filterMatchMode="contains">  
+				           <h:outputText value="#{fornecedorDataTable.produto.dsProduto}"/>  
+				        </p:column>    
+				
+				        
+					</p:dataTable>
+		</p:fieldset>
+     
+      <p:commandButton value="Salvar" action="#{prodForMB.salvar}" update="formulario" />
+      <p:commandButton value="Remover" action="#{prodForMB.remover}" update="formulario" />
+      <p:commandButton value="Limpar" action="#{prodForMB.clear}" update="formulario" />	
+    </h:form>
+</h:body>	
+</html>

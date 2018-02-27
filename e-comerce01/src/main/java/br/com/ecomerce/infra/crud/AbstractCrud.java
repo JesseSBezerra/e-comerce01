@@ -28,12 +28,12 @@ public abstract class AbstractCrud<T extends Serializable> extends AbstractRepor
 	public void salvar(T t){
 		try {
 			dao.salvar(t);
-			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Atenção", "Registro salvo com sucesso!");
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "AtenÃ§Ã£o", "Registro salvo com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção", e.getMessage());
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "AtenÃ§Ã£o", e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 		}
 		
@@ -67,8 +67,22 @@ public abstract class AbstractCrud<T extends Serializable> extends AbstractRepor
 		return lista;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public List getListByObject(Class<?> classe){
+		List lista = null;
+		try {
+			return lista=  dao.getListByObject(classe);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lista;
+	}
+	
 	public String getCompileFileName(){
 	return classe.getSimpleName().toLowerCase();	
 	}
+	
+	
 
 }

@@ -12,6 +12,8 @@ public interface Dao <T extends Serializable> extends Serializable{
 	
 	public List<T> listar(Class<T> classe) throws Exception;
 	
+	public List<T> getListByObject(Class<?> classe) throws Exception;
+	
 	public boolean existe(T entidade) throws Exception;
 	
 	public void excluir(T entidade) throws Exception;

@@ -13,6 +13,11 @@ public abstract class AbstractBean <T extends Serializable> extends AbstractCrud
 		super(classe);
 		this.controller = controller;
 	}
+	
+	public AbstractBean(Class<T> classe) {
+		super(classe);
+	}
+	
 	/**
 	 * 
 	 */
@@ -29,8 +34,8 @@ public abstract class AbstractBean <T extends Serializable> extends AbstractCrud
 		this.t = getInstance();
 		try {
 			super.salvar(t);
+			clear();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -38,9 +43,9 @@ public abstract class AbstractBean <T extends Serializable> extends AbstractCrud
 	public void remover(){
 		this.t = getInstance();
 		try {
-			super.salvar(t);
+			super.remover(t);
+			clear();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -50,7 +55,6 @@ public abstract class AbstractBean <T extends Serializable> extends AbstractCrud
 		try {
 			lista = super.getLitsta();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lista;

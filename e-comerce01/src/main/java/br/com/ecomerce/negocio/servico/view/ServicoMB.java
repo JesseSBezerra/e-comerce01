@@ -1,33 +1,46 @@
 package br.com.ecomerce.negocio.servico.view;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.ecomerce.negocio.servico.controller.ServicoController;
+import br.com.ecomerce.infra.crud.AbstractBean;
 import br.com.ecomerce.negocio.servico.model.Servico;
 
 @ManagedBean
 @ViewScoped
-public class ServicoMB implements Serializable {
+public class ServicoMB extends AbstractBean<Servico>{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private Servico servico;
-	private ServicoController controller;
-	private List<Servico> lista;
 	
-	@PostConstruct
-	public void init(){
-		servico = new Servico();
-		controller = new ServicoController();
-		lista = new ArrayList<Servico>();
+	private static final long serialVersionUID = 1L;
+
+	public ServicoMB() {
+		super(Servico.class);
+	}
+
+	@Override
+	public Servico getInstance() {
+		// TODO Auto-generated method stub
+		try{
+		return this.servico;
+		}finally{
+			clear();
+		}
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		this.servico = new Servico();
+	}
+
+	@Override
+	public void onRowSelect() {
+		// TODO Auto-generated method stub
+		setServico(getObjetoSelecionado());
 	}
 
 	public Servico getServico() {
@@ -38,29 +51,8 @@ public class ServicoMB implements Serializable {
 		this.servico = servico;
 	}
 
-	public ServicoController getController() {
-		return controller;
-	}
 
-	public void setController(ServicoController controller) {
-		this.controller = controller;
-	}
 
-	public List<Servico> getLista() {
-		return lista;
-	}
-
-	public void setLista(List<Servico> lista) {
-		this.lista = lista;
-	}
 	
-	public void salvar(){
-		this.controller.salvar(servico);
-		limpar();
-	}
-	
-	public void limpar(){
-		this.servico = new Servico();
-	}
 
 }

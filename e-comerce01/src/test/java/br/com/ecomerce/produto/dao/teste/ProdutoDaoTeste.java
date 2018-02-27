@@ -2,7 +2,6 @@ package br.com.ecomerce.produto.dao.teste;
 
 import br.com.ecomerce.infra.banco.dao.Dao;
 import br.com.ecomerce.infra.banco.dao.DaoImp;
-import br.com.ecomerce.negocio.produto.controller.ProdutoControler;
 import br.com.ecomerce.negocio.produto.model.Produto;
 
 public class ProdutoDaoTeste {
@@ -15,15 +14,15 @@ public class ProdutoDaoTeste {
 	}
 	
 	public void cadastarProduto() throws Exception{
-		Produto produto = new Produto(1L, "Feijão tio joão", "S", "S", "P");
+		Produto produto = new Produto(1L, "Feijï¿½o tio joï¿½o", "S", "S", "P");
 		dao.atualizar(produto);
 	}
 	
 	public void listar(){
-		ProdutoControler produtoControler = new ProdutoControler();
-		for(Produto produto : produtoControler.listarProdutos()){
-			System.out.println(produto.getDsProduto());
-		}
+//		ProdutoControler produtoControler = new ProdutoControler();
+//		for(Produto produto : produtoControler.listarProdutos()){
+//			System.out.println(produto.getDsProduto());
+//		}
 	}
 	
 	public static void main(String[] args) {
